@@ -20,7 +20,7 @@ name = Annotated[str, mapped_column(String(30))]
 second_name = Annotated[Optional[str], mapped_column(String(30), default=None)]
 surname = Annotated[str, mapped_column(String(30))]
 nickname = Annotated[str, mapped_column(String(30), unique=True)]
-matricola = Annotated[int, mapped_column(Integer(7), unique=True)]
+matricola = Annotated[int, mapped_column(unique=True)]
 
 
 db = SQLAlchemy(model_class=Base)
@@ -30,7 +30,7 @@ class User(db.Model):
     id : Mapped[intpk] = mapped_column(init=False)
     matricola : Mapped[matricola]
     name : Mapped[name]
-    second_name : Mapped[second_name]
+    #second_name : Mapped[second_name]
     surname : Mapped[surname]
     nickname : Mapped[nickname]
     
