@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey, String, MetaData
+from typing import Optional
+from sqlalchemy import ForeignKey, String, Integer, MetaData
 from sqlalchemy.orm import DeclarativeBase, Mapped, MappedAsDataclass, mapped_column, relationship
 from typing_extensions import Annotated
 
@@ -16,12 +17,21 @@ class Base(MappedAsDataclass, DeclarativeBase):
 # data classes
 intpk = Annotated[int, mapped_column(primary_key=True)]
 name = Annotated[str, mapped_column(String(30))]
+second_name = Annotated[Optional[str], mapped_column(String(30), default=None)]
+surname = Annotated[str, mapped_column(String(30))]
+nickname = Annotated[str, mapped_column(String(30), unique=True)]
+matricola = Annotated[int, mapped_column(Integer(7), unique=True)]
+
 
 db = SQLAlchemy(model_class=Base)
 
 # ToDo db tables
 class User(db.Model):
     id : Mapped[intpk] = mapped_column(init=False)
+    matricola : Mapped[matricola]
     name : Mapped[name]
-    surname : Mapped[name]
+    second_name : Mapped[second_name]
+    surname : Mapped[surname]
+    nickname : Mapped[nickname]
+    
     
