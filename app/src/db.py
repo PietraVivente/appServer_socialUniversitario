@@ -14,7 +14,7 @@ NAMING_CONVENTION = {
 class Base(MappedAsDataclass, DeclarativeBase):
     metadata = MetaData(naming_convention=NAMING_CONVENTION)
     
-# data classes
+# data classes : tutti i tipi delle colonne del db
 intpk = Annotated[int, mapped_column(primary_key=True)]
 name = Annotated[str, mapped_column(String(30))]
 second_name = Annotated[Optional[str], mapped_column(String(30), default=None)]
