@@ -24,4 +24,5 @@ class UserSchema(Schema):
         if not re.search(r'[A-Z]', value):
             raise ValidationError('La password deve contenere almeno un carattere maiuscolo') 
         
-user_schema = UserSchema()
+user_schema = UserSchema() # mette a disposizione un oggetto per validare lo schema
+
