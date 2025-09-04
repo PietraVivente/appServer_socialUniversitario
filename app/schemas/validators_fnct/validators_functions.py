@@ -1,7 +1,7 @@
 from marshmallow import ValidationError
 from typing import Dict, Any, List
 from schemas.schemas import user_schema, UserSchema
-from src.db import User
+from src.models import User
 
 # controlla i dati passati per l'user
 def validate_user_data(data : User) -> Dict[str, Any]:
