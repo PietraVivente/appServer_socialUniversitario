@@ -2,13 +2,27 @@ from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 from schemas.args_schemas import UserQueryArgsSchema
 from schemas.schemas import UserSchema
-from src.db import db
+from schemas.validators_fnct import validators_functions as vf
+from ... import db 
+from src.models import User
 
 main_bp = Blueprint('main', 'main', description='rotte principali del sever app')
 
-@main_bp.route('/')
-class User(MethodView):
-    @main_bp.arguments(UserQueryArgsSchema, location='query')
-    @main_bp.response(200, UserSchema(many=True))
-    def get(self, args):
-        db.session.execute() # TODO
+@main_bp.route('/user/<user_id>')
+class UserRoutes(MethodView):
+    #@main_bp.arguments(UserQueryArgsSchema, location='query')
+    @main_bp.response(200, UserSchema)
+    def get(self, user_id):
+        
+        user = db.get_or_404(User, user_id)
+        
+        print(user)
+        
+        '''res = vf.validate_user_data(user)
+        
+        if not res['status']:
+            print(res.error)
+            abort(422)'''
+        
+        
+        return f'{user}'

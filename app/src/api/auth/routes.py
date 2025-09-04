@@ -1,6 +1,6 @@
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
-from src.db import db, User
+from src.models import db, User
 
 auth_bp = Blueprint('auth', 'auth', url_prefix='/auth', description='rotte ausiliarie o secondarie')
 
