@@ -5,7 +5,7 @@ import re
 class UserSchema(Schema):
     name = fields.Str(
         required=True,
-        validate=validate.lenght(min=2, max=30, error='Il nome deve contenere dai 2 ai 30 caratteri')
+        validate=validate.Length(min=2, max=30, error='Il nome deve contenere dai 2 ai 30 caratteri')
         )
     
     surname = fields.Str(
@@ -13,16 +13,25 @@ class UserSchema(Schema):
         validate=validate.Length(min=2, max=30, error='Il cognome deve contenere dai 2 ai 30 caratteri')
         )
     
-    email = fields.Email(required = True)
+    matricola = fields.Int(
+        validate=validate.Length(equal=7, error='La matricola deve essere di esattamente 7 caratteri'),   
+    )
+    
+    nickname = fields.Str(
+        validate=validate.Length(min=2, max=30, error='Il soprannome deve contenere dai 2 ai 30 caratteri'),
+        dump_default=f'{name}_{surname}_{matricola}'
+    )
+    
+    #email = fields.Email(required = True)
         
-    password = fields.Str(required=True)
+    '''password = fields.Str(required=True)
     
     @validates('password')
     def check_password_strenght(self, value, **kwargs):
         if not re.search(r'/d', value):
             raise ValidationError('La password deve contenere almeno un carattere numerico')
         if not re.search(r'[A-Z]', value):
-            raise ValidationError('La password deve contenere almeno un carattere maiuscolo') 
+            raise ValidationError('La password deve contenere almeno un carattere maiuscolo') '''
         
 user_schema = UserSchema() # mette a disposizione un oggetto per validare lo schema
 
