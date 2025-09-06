@@ -1,10 +1,10 @@
 from marshmallow import ValidationError
 from typing import Dict, Any, List
-from schemas.schemas import user_schema, UserSchema
-from src.models import User
+from schemas import user_schema, UserSchema
+from src.models import SapienzaUser, Roma3User
 
 # controlla i dati passati per l'user
-def validate_user_data(data : User) -> Dict[str, Any]:
+def validate_user_data(data : SapienzaUser) -> Dict[str, Any]:
     try:
         result = user_schema.load(data)
         return {'status' : 1,

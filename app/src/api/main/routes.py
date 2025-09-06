@@ -1,10 +1,8 @@
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
-from schemas.args_schemas import UserQueryArgsSchema
-from schemas.schemas import UserSchema
-from schemas.validators_fnct import validators_functions as vf
+from schemas import UserSchema, UserQueryArgsSchema, validate_user_data
 from ... import db 
-from src.models import User
+from src.models import SapienzaUser
 
 main_bp = Blueprint('main', 'main', description='rotte principali del sever app')
 
@@ -14,15 +12,19 @@ class UserRoutes(MethodView):
     @main_bp.response(200, UserSchema)
     def get(self, user_id):
         
-        user = db.get_or_404(User, user_id)
+        user = db.get_or_404(SapienzaUser, user_id)
         
-        print(user)
+        print(user.to_dict())
         
-        '''res = vf.validate_user_data(user)
+        data = user.to_dict()
+        
+        res = validate_user_data(data)
         
         if not res['status']:
-            print(res.error)
-            abort(422)'''
+            print(res['error'])
+            abort(422)
+        else:
+            print('validation successfull...')
         
         
-        return f'{user}'
+        return data
