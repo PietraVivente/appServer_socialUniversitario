@@ -22,7 +22,7 @@ class SapienzaUser(db.Model):
     surname : Mapped[surname]
     username : Mapped[username]
     email : Mapped[str] = mapped_column(String(50), unique=True)
-    password : Mapped[str] = mapped_column(String(256), default=None, nullable=False)
+    password : Mapped[str] = mapped_column(String(256), nullable=False)
     
     def set_password(self, sub_psw: str) -> None:
         self.password = generate_password_hash(sub_psw)
