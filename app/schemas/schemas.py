@@ -3,7 +3,12 @@ from marshmallow import Schema, fields, validate, validates, ValidationError
 import re
 
 class UserSchema(Schema):
-    id = fields.Int()
+    id = fields.Int(required=True)
+    
+    matricola = fields.Int(
+        required=True,
+        validate=validate.Range(min=1000000, max=9999999, error='La matricola deve essere di esattamente 7 caratteri')   
+    )
     
     name = fields.Str(
         required=True,
@@ -15,13 +20,11 @@ class UserSchema(Schema):
         validate=validate.Length(min=2, max=30, error='Il cognome deve contenere dai 2 ai 30 caratteri')
         )
     
-    matricola = fields.Int(
-        validate=validate.Range(min=7, max=7, error='La matricola deve essere di esattamente 7 caratteri'),   
-    )
-    
     nickname = fields.Str(
         validate=validate.Length(min=2, max=20, error='Il nickname deve essere compreso tra 2 e 20 caratteri')
         )
+    
+    email = fields.Email(error_messages={'main' : 'L\'email inserita non è valida'})
     
     '''personal_hash = fields.Method('gen_hash', dump_only=True)
     

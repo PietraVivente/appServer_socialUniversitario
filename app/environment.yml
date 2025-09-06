@@ -1,0 +1,14 @@
+name: appServer_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - flask
+  - flask-sqlalchemy
+  - flask-migrate
+  - gunicorn
+  - python-dotenv
+
+  - pip:
+    - flask-smorest

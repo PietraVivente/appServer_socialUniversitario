@@ -3,5 +3,5 @@ from marshmallow import Schema, fields, validate, validates, ValidationError
 import re
 
 class UserQueryArgsSchema(Schema):
-    id = fields.Int(required=True)
+    email = fields.Str(required=True) 
     
